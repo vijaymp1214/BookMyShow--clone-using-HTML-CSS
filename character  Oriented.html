@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift cards </title>
+</head>
+<style>
+    :root {
+        /* Theme colors */
+        --primary-color: #ff3b3b;
+        --secondary-color: #222;
+        --light-color: #666;
+        --background-color: #666;
+
+        /* Fonts */
+        --heading-font: Arial, Helvetica, sans-serif;
+        --body-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+        /* Sizes */
+        --heading-size: 24px;
+        --paragraph-size: 14px;
+
+        /* Spacing */
+        --heading-margin-top: 50px;
+        --heading-padding-left: 10%;
+    }
+
+    /* Headings and paragraphs */
+    h2 {
+        font-family: var(--heading-font);
+        font-size: var(--heading-size);
+        color: var(--secondary-color);
+        margin-top: var(--heading-margin-top);
+        margin-bottom: 3%;
+        padding-left: var(--heading-padding-left);
+
+
+    }
+
+    p {
+        font-family: var(--body-font);
+        font-size: var(--paragraph-size);
+        color: var(--light-color);
+    }
+
+    .search-bar {
+        width: 150px;
+    }
+
+    @media (max-width: 480px) {
+
+        .card,
+        .card1,
+        .card2 {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+
+
+        .signin nav {
+            margin-left: 0;
+        }
+
+        .nav nav {
+            flex-direction: column;
+            padding: 10px;
+        }
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        /* Vertically center */
+        justify-content: space-between;
+        /* Spread out logo, search, signin, location */
+        height: 70px;
+        width: 100%;
+        padding: 0 20px;
+        /* Space on left/right */
+        background-color: white;
+        box-sizing: border-box;
+    }
+
+
+    .logo {
+        font-size: 12px;
+        color: red;
+        font-family: Arial;
+    }
+
+    .search-bar {
+        padding: 17px 16px;
+        border-radius: 6px;
+        width: 200px;
+        display: flex;
+    }
+
+    .location {
+        padding: 22px;
+        height: 50px;
+    }
+
+    .location button,
+    .signin a {
+        background-color: var(--primary-color);
+        border: none;
+        padding: 7px 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+
+    }
+
+    .signin nav {
+        display: flex;
+        margin-top: 15px;
+        margin-left: 600px;
+    }
+
+    .nav nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f8f8;
+        padding: 10px 120px;
+    }
+
+    .nav a {
+        margin: 20px 10px;
+        text-decoration: none;
+        color: rgb(85, 84, 84);
+        font-size: 15px;
+    }
+
+
+
+    .gift-card-section {
+        width: 80%;
+        margin: 0 auto;
+        /* centers it horizontally */
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding-bottom: 40px;
+    }
+
+    /* Gift nav inside the section */
+    .gift-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px auto;
+        border: 1px solid #ddd;
+        width: fit-content;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    /* Pick card section */
+    .pick-card {
+        text-align: center;
+    }
+
+    /* Card container inside section */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        justify-items: center;
+        padding: 40px 30px;
+    }
+
+    .gift-nav a {
+        text-decoration: none;
+        color: #777;
+        padding: 15px 40px;
+        border-right: 1px solid #ddd;
+        background: #fafafa;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .gift-nav a:last-child {
+        border-right: none;
+    }
+
+    .gift-nav a:hover {
+        color: #000;
+        background: #fff;
+    }
+
+    .theme-nav {
+        text-align: center;
+        margin-top: 40px;
+    }
+    a.active2{
+      color: black;
+      background-color: white;
+    }
+
+    .theme-nav h2 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 25px;
+    }
+
+    /* Keep buttons in one line and evenly spaced */
+    .theme-nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        /* allows responsiveness but keeps row */
+        gap: 15px;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Button style */
+    .theme-nav ul li a {
+        display: inline-block;
+        white-space: nowrap;
+        /* prevents text break like "Friendship\nDay" */
+        text-decoration: none;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+        background-color: #fff;
+        font-size: 15px;
+    }
+
+    /* Hover effect */
+    .theme-nav ul li a:hover {
+        background-color: #ff3b3b;
+        color: white;
+    }
+
+    /* Active button */
+    .theme-nav ul li a.active {
+        background-color: #e50914;
+        color: #fff;
+        border-color: #e50914;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 350px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .bookmyshow-gift {
+        text-align: center;
+        margin: 20PX AUTO;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .footer {
+        width: 100%;
+        height: auto;
+        background-color: rgb(51, 52, 52);
+        font-size: 10px;
+
+    }
+
+    .contacttoday {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .contacttoday img {
+        width: 50px;
+        /* adjust as needed */
+        height: auto;
+    }
+
+    .contacttoday p {
+        margin: 0;
+        flex: 1;
+        /* take remaining space */
+        margin-left: 50PX;
+        color: #ffffff;
+    }
+
+    .contacttoday nav .btn {
+        background: #ea2626;
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 5px;
+        font-size: 17px;
+    }
+
+    .contact {
+        width: 100%;
+        height: 130px;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        border: 1px solid #666;
+        background-color: #545151;
+
+
+    }
+
+    .contact1 {
+        width: 300px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        margin-left: 60px;
+        color: white;
+        text-align: center;
+
+    }
+
+    .contact1 p {
+        color: rgb(151, 148, 148);
+    }
+
+    .update {
+        color: rgb(147, 142, 142);
+        width: 85%;
+        margin-left: 60PX;
+        font-size: 15PX;
+
+    }
+
+    .update P {
+        color: #b7b2b2;
+    }
+
+    footer {
+        background-color: rgb(51, 52, 52);
+        padding: 25px;
+        text-align: center;
+    }
+
+    .social-links a {
+        color: white;
+        /* default color */
+        margin: 0 15px;
+        font-size: 28px;
+        /* size of logos */
+        transition: color 0.3s;
+        padding: 15px;
+    }
+
+    .social-links a:hover {
+        color: red;
+        /* hover effect */
+
+    }
+</style>
+
+<body>
+    <header>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        <div class="logo">
+            <H1>BookMyShow</H1>
+        </div>
+
+        <div class="search-bar">
+            🔍 <input type="Text" placeholder="Search for Movies,Events,Plays,Sports and Activities...">
+        </div>
+        <div class="signin">
+            <nav>
+                <a href="./signin.html" class="btn">Sign In</a>
+            </nav>
+        </div>
+        <div class="location">
+            <label for="location"></label>
+            <select id="location" name="location" required>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Goa">Goa</option>
+                <option value="Pune">Pune</option>
+                <option value="Kochi">Kochi</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="nav">
+        <nav>
+            <div class="left-links">
+                 <a href="./clone.html">Movies</a>
+                <a href="./clone.html">Stream</a>
+                <a href="./clone.html">Events</a>
+                <a href="./clone.html">Plays</a>
+                <a href="./clone.html">Sports</a>
+                <a href="./clone.html">Activities</a>
+            </div>
+            <div class="right-links">
+                <a href="./ListyourShow.html">ListYourShow</a>
+                <a href="./Corporates.html">Corporates</a>
+                <a href="./Offers.html">Offers</a>
+                <a href="#GiftCards">Gift Cards</a>
+            </div>
+        </nav>
+    </div>
+    <section class="gift-card-section">
+        <nav class="gift-nav">
+            <a href="#E-GIFT CARDS" class="active2">E-GIFT CARDS</a>
+            <a href="./physical gift.html" >PHYSICAL GIFT CARDS</a>
+        </nav>
+        <section class="pick-card">
+            <nav class="theme-nav">
+                <h2>Pick a card from one of our themes</h2>
+                <ul>
+                    <li><a href="./GIftcard.html" >All</a></li>
+                    <li><a href="./Generic.html">Generic</a></li>
+                    <li><a href="./Friendshipday.HTML">Friendship Day</a></li>
+                    <li><a href="#Character Oriented" class="active">Character Oriented</a></li>
+                </ul>
+            </nav>
+            <div class="card-container">
+                <div class="card"><img src="./image/happy you day.png" alt="Happy You Day"></div>
+                <div class="card"><img src="./image/your bday.png" alt="Your Birthday"></div>
+                <div class="card"><img src="./image/belated happy bday.png" alt="Belated Birthday"></div>
+                <div class="card"><img src="./image/happy anniversy.png" alt="Happy Anniversary"></div>
+                <div class="card"><img src="./image/another trip.png" alt="Another Trip"></div>
+                <div class="card"><img src="./image/drama queen.png" alt="Drama Queen"></div>
+                <div class="card"><img src="./image/born day.png" alt="Born Day"></div>
+                <div class="card"><img src="./image/best parter.png" alt="Best Partner"></div>
+                <div class="card"><img src="./image/best bestie.png" alt="Best Bestie"></div>
+                <div class="card"><img src="./image/my supprot system.png" alt="My Support System"></div>
+                <div class="card"><img src="./image/bestie foorever.png" alt="Besties Forever"></div>
+                <div class="card"><img src="./image/i love you.png" alt="I Love You"></div>
+                <div class="card"><img src="./image/forever my fun.png" alt="Forever My Fun"></div>
+            </div>
+        </section>
+    </section>
+    <section class="bookmyshow-gift">
+        <h3>BOOKMYSHOW GIFT CARDS</h3>
+        <P>Gift an experience to your loved ones like never before! Give them a gift of fun and entertainment with
+            BookMyShow gift cards. Whatever be the occasion, a BookMyShow Gift Card is just right to delight someone.
+            From birthdays, anniversaries, festivals to special occasions, there is a wide selection of quirky and cool
+            gift cards you can choose<BR><BR>
+            Redeem your gift card at the secure payment page while booking your tickets. Click on the "Gift Voucher" tab
+            and enter your Gift Card code.
+            Some useful tips while using Gift Cards </P>
+    </section>
+
+<div class="footer">
+    <div class="contacttoday">
+        <img src="./image/footer.png" alt="footer">
+        <p><b>List your show</b> Got a Show,events, activity ora great experience? Partner with us & get listed on
+            BookMyShow </p>
+        <nav>
+            <a href="./signin.html" class="btn">Contact today!</a>
+        </nav>
+    </div>
+
+    <div class="contact">
+        <div class="contact1">
+            <p>🕿<br>
+                24/7 CUSTOMER CARE
+            </p>
+        </div>
+        <div class="contact1">
+            <p>🎟️<br>
+                RESEND BOOKING CONFORMATION
+            </p>
+            <DIV class="contact1">
+                <p>📩<br>
+                    SUBSRIBE TO THE NEWSLETTER
+                </p>
+            </DIV>
+        </div>
+    </div>
+
+    <div class="update">
+        <p>MOVIES NOW SHOWING IN MUMBAI</p>
+        Jolly LLB 3 | DashavatrAa | Kantara: A Lengend Chapyer-1 | Sunny Sankar ki Tulsi Kumari | One Battle After
+        Another | Chalsman - The Movies: Rezer Arc | Homebound | Shin chan: The Spicy Kasukabe Dancers in Inida | they
+        Ca;ll Him OG | The Stranger: Chapter 2
+        <P>MOVIES BY GENRE</P>
+        Drama Movies | Comedy Movies | Action Movies | Romantic Movies | Thriller Movies | Adventure Movies | Family
+        Movies | Crime Movies | Anime Movies | Musical Movies
+        <P>MOVIES BY LANGUAGE</P>
+        Movies in Hindi | Movies in English | Movies in Japanese | Movies in Marathi | Movies in Malayalam | Movies in
+        Bengali | Movies in Gujarati | Movies in Telugu | Movies in Portuguese
+        <P>SPORTS EVENTS IN MUMBAI</P>
+        Running | Chess | Cricket | Cycling | Sailing | Kabaddi | Baseball | Horse Race | Boat Race | Archery
+        <P>EVENTS IN TOP CITIES</P>
+        Events in Mumbai | Events in Delhi-NCR | Events in Chennai | Events in Bengaluru | Events in Hyderabad | Events
+        in Pune | Events in Ahmedabad | Events in Kolkata | Events in Kochi
+        <P>CINEMAS IN TOP CITIES</P>
+        Cinemas in Mumbai | Cinemas in Delhi-NCR | Cinemas in Chennai | Cinemas in Bengaluru | Cinemas in Hyderabad |
+        Cinemas in Pune | Cinemas in Ahmedabad | Cinemas in Kolkata
+        <P>PLAYS IN TOP CITIES</P>
+        Plays in Mumbai | Plays in Delhi-NCR | Plays in Chennai | Plays in Bengaluru | Plays in Hyderabad | Plays in
+        Pune | Plays in Ahmedabad | Plays in Kolkata | Plays in Kochi
+        <P>ACTIVITIES IN TOP CITIES</P>
+        Activities in Mumbai | Activities in Delhi-NCR | Activities in Chennai | Activities in Bengaluru | Activities in
+        Hyderabad | Activities in Pune | Activities in Ahmedabad | Activities in Kolkata | Activities in Kochil
+        <P>MOVIES NOW SHOWING</P>
+        Jolly LLB 3 | They Call Him OG | Kantara: A Legend Chapter-1 | Dashavatar | Idli Kadai | Sunny Sanskari Ki Tulsi
+        Kumari | Raghu Dakat | Adventure of Jetcat 7D - Combo | Shin chan: The Spicy Kasukabe Dancers in India
+        <P>COUNTRIES</P>
+        Indonesia | Singapore | Sri Lanka | West Indies
+        <p>HELP</p>
+        About Us | Contact Us | Current Opening | Press Release | Press Coverage | Sitemap | FAQs | Terms and Conditions
+        | Privacy Policy
+        <p>BOOKMYSHOW EXCLUSIVES</p>
+        Lollapalooza India | BookAChange | Corporate Vouchers | Gift Cards | List My Show | Offers | Stream | Trailers
+        <p>ICC WOMEN'S CRICKET WORLD CUP 2025</p>
+        Women's CWC 2025 Matches in India | Women's CWC 2025 Matches in Sri Lanka
+        <p>WOMEN'S CWC 2025 TEAMS (INDIA)</p>
+        IND Women's CWC Matches 2025 | AUS Women's CWC Matches 2025 | BAN Women's CWC Matches 2025 | ENG Women's CWC
+        Matches 2025 | NZ Women's CWC Matches 2025 | PAK Women's CWC Matches 2025
+    </div>
+    <hr>
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+
+        <p> Copyright 2025 © Bigtree Entertainment Pvt. Ltd. All Rights Reserved <br>
+            The content and images used on this site are copyright protected and copyrights vests with the respective
+            owners. The usage of the content and images on this website is intended to promote the works and no
+            endorsement of the artist shall be implied. Unauthorized use is prohibited and punishable by law.
+            ookmyshow.com
+            Q Search
+            Finance headline
+            India reported 1...
+            ENG </p>
+
+    </footer>
+        <script src="./JS/character oriented.js"></script>
+</body>
+</html>
